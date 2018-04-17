@@ -1,5 +1,6 @@
 /*
 Experimenting with solutions to the Advent of Code challenge 2015-1 (http://adventofcode.com/2015/day/1)
+Use with command 'node santa_helper.js > console.txt' to get console output in a file.
 
 Created by Thimothé Lamoureux
 April 16 2018
@@ -49,6 +50,19 @@ const timeProfiling = callback => param => {
     }
 };
 
+/**Executes the solution named name and provided in callback. Logs the time using console.time
+ *
+ * @param name Name of the solution for logging purposes
+ * @param callback Solution to be applied
+ * @return {Function}
+ */
+const applySolution = (name, callback) => data => {
+    console.time(name);
+    let floor = callback(data);
+    console.timeEnd(name);
+    console.log(`${name} using console.time:\t\tYou are at floor ${floor}`);
+}
+
 /**
  *
  * @param {array} time output of hrtime
@@ -66,32 +80,44 @@ const helpSanta = fs.readFile(inputFile, (err, data) => {
     });
 
     let data_string = data.toString();
-    
+
+    // TODO: Lots of repeating code === "BAD!". Would be better to create a wrapper.
+
     let floor1 = timeProfiling(floorFinder1)(data_string);
     fs.appendFile(outputFile, `Solution1:\t\tYou are at floor ${floor1.result} and it took ${humanReadableTime(floor1.time)}\n`, err => {
         if (err) throw err;
     });
+
+    applySolution('Solution1', floorFinder1)(data_string);
+
 
     let floor21 = timeProfiling(floorFinder21)(data_string);
     fs.appendFile(outputFile, `Solution21:\t\tYou are at floor ${floor21.result} and it took ${humanReadableTime(floor21.time)}\n`, err => {
         if (err) throw err;
     });
 
+    applySolution('Solution21', floorFinder21)(data_string);
+
     let floor22 = timeProfiling(floorFinder22)(data_string);
     fs.appendFile(outputFile, `Solution22:\t\tYou are at floor ${floor22.result} and it took ${humanReadableTime(floor22.time)}\n`, err => {
         if (err) throw err;
     });
+
+    applySolution('Solution22', floorFinder22)(data_string);
 
     let floor23 = timeProfiling(floorFinder23)(data_string);
     fs.appendFile(outputFile, `Solution23:\t\tYou are at floor ${floor23.result} and it took ${humanReadableTime(floor23.time)}\n`, err => {
         if (err) throw err;
     });
 
+    applySolution('Solution23', floorFinder23)(data_string);
+
     let floor3 = timeProfiling(floorFinder3)(data_string);
     fs.appendFile(outputFile, `Solution3:\t\tYou are at floor ${floor3.result} and it took ${humanReadableTime(floor3.time)}\n`, err => {
         if (err) throw err;
     });
 
+    applySolution('Solution.', floorFinder3)(data_string);
 
 });
 
@@ -182,4 +208,12 @@ const floorFinder3 = (data) => {
 
     // Need to escape backslash and parenthesis
     return count(data, '\\(') - count(data, '\\)');
+}
+
+
+
+
+
+const bonus = (data, floorToFind) => {
+
 }

@@ -1,0 +1,10 @@
+Solution1: 2.583ms
+Solution1 using console.time:		You are at floor 232
+Solution21: 0.438ms
+Solution21 using console.time:		You are at floor 232
+Solution22: 0.423ms
+Solution22 using console.time:		You are at floor 232
+Solution23: 0.434ms
+Solution23 using console.time:		You are at floor 232
+Solution.: 0.473ms
+Solution. using console.time:		You are at floor 232
