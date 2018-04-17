@@ -15,6 +15,7 @@ April 16 2018
     Considerations:
         Written in Node.js
         KISS, no over abstraction
+        Explore different techniques
         Order of parenthesis doesn't matter
         Processing speed does matter
         Infinity of floors and basements
@@ -29,33 +30,69 @@ April 16 2018
 
  */
 
-
-
 const fs = require('fs');
-const puzzle = fs.readFile('./santa_input.txt', (err, data) => {
+const inputFile = './santa_input.txt';
+const outputFile = './results.txt';
+
+/**Measures the execution time of a function, the Node.js way
+ * TODO: use a reference to a time variable instead of returning an Object
+ * 
+ * @param {function} callback The function for which the execution time should be measured
+ * @return {function(*=): {result: *, time: *|Array}}
+ */
+const timeProfiling = callback => param => {
+    let  time = process.hrtime();
+
+    return {
+        result: callback(param),
+        time: process.hrtime(time)
+    }
+};
+
+/**
+ *
+ * @param {array} time output of hrtime
+ * @return {string} human readable time string
+ */
+const humanReadableTime = time => `${time[0]} seconds and ${time[1]}ns`;
+
+
+const helpSanta = fs.readFile(inputFile, (err, data) => {
     if (err) throw err;
 
+    // Clear the output file
+    fs.writeFile(outputFile, '', err => {
+        if (err) throw err;
+    });
+
     let data_string = data.toString();
+    
+    let floor1 = timeProfiling(floorFinder1)(data_string);
+    fs.appendFile(outputFile, `Solution1:\t\tYou are at floor ${floor1.result} and it took ${humanReadableTime(floor1.time)}\n`, err => {
+        if (err) throw err;
+    });
 
-    console.time('1');
-    console.log('1 You are at floor ', floorFinder1(data_string));
-    console.timeEnd('1');
+    let floor21 = timeProfiling(floorFinder21)(data_string);
+    fs.appendFile(outputFile, `Solution21:\t\tYou are at floor ${floor21.result} and it took ${humanReadableTime(floor21.time)}\n`, err => {
+        if (err) throw err;
+    });
 
-    console.time('21');
-    console.log('21 You are at floor ', floorFinder21(data_string));
-    console.timeEnd('21');
+    let floor22 = timeProfiling(floorFinder22)(data_string);
+    fs.appendFile(outputFile, `Solution22:\t\tYou are at floor ${floor22.result} and it took ${humanReadableTime(floor22.time)}\n`, err => {
+        if (err) throw err;
+    });
 
-    console.time('22');
-    console.log('22 You are at floor ', floorFinder22(data_string));
-    console.timeEnd('22');
+    let floor23 = timeProfiling(floorFinder23)(data_string);
+    fs.appendFile(outputFile, `Solution23:\t\tYou are at floor ${floor23.result} and it took ${humanReadableTime(floor23.time)}\n`, err => {
+        if (err) throw err;
+    });
 
-    console.time('23');
-    console.log('23 You are at floor ', floorFinder23(data_string));
-    console.timeEnd('23');
+    let floor3 = timeProfiling(floorFinder3)(data_string);
+    fs.appendFile(outputFile, `Solution3:\t\tYou are at floor ${floor3.result} and it took ${humanReadableTime(floor3.time)}\n`, err => {
+        if (err) throw err;
+    });
 
-    console.time('3');
-    console.log('3 You are at floor ', floorFinder3(data_string));
-    console.timeEnd('3');
+
 });
 
 /**

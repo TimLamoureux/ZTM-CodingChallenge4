@@ -1,0 +1,5 @@
+Solution1:		You are at floor 232 and it took 0 seconds and 677638ns
+Solution21:		You are at floor 232 and it took 0 seconds and 476245ns
+Solution22:		You are at floor 232 and it took 0 seconds and 494381ns
+Solution23:		You are at floor 232 and it took 0 seconds and 1018396ns
+Solution3:		You are at floor 232 and it took 0 seconds and 570690ns
